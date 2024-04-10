@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    env_file:
+      - db_config.env
+    volumes:
+      - mysql_data:/mysql
+    ports:
+      - "3306:3306"
+
+  opencart:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opencart
+    restart: always
+    volumes:
+      - opencart_data:/opencart_data
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+
+volumes:
+  mysql_data:
+  opencart_data:
+
+networks:
+  default:
+    driver: bridge

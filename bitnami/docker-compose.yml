@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   mysql:
     image: mysql:latest
@@ -10,27 +9,31 @@ services:
     volumes:
       - mysql_data:/mysql
     ports:
-      - "3306:3306"
+      - '3306:3306'
     networks:
       - opencart
   opencart:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: bitnami/opencart:latest
     container_name: opencart
-    restart: always
+    ports:
+      - '80:8080'
+      - '443:8443'
+    env_file:
+      - opencart_config.env
     volumes:
-      - opencart_data:/opencart_data
+      - 'opencart_data:/bitnami/opencart'
+      - 'opencart_storage_data:/bitnami/opencart_storage/'
     depends_on:
       - mysql
-    ports:
-      - "80:80"
     networks:
       - opencart
 volumes:
   mysql_data:
+    driver: local
   opencart_data:
-
+    driver: local
+  opencart_storage_data:
+    driver: local
 networks:
   opencart:
     driver: bridge

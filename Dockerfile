@@ -37,6 +37,3 @@ RUN curl -o opencart.zip -SL https://github.com/opencart/opencart/releases/downl
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /var/www/html
-
-
-

@@ -36,6 +36,35 @@ Before you begin, make sure you have Docker and Docker Compose installed on your
 
 5. **Follow OpenCart Installation**: Complete the OpenCart installation by following the on-screen instructions. Use the database settings you specified in `db_config.env`.
 
+## Using Bitnami Images
+
+For those who prefer a pre-configured setup, you can use the Bitnami Docker images available in the `bitnami` folder. Simply configure the `opencart_config.env` and `db_config.env` files with your specific settings:
+
+### opencart_config.env
+```env
+OPENCART_DATABASE_HOST=mysql
+OPENCART_DATABASE_PORT_NUMBER=3306
+OPENCART_DATABASE_USER=test
+OPENCART_DATABASE_NAME=test
+OPENCART_DATABASE_PASSWORD=test
+# Administrator of OpenCart
+OPENCART_USERNAME=test
+OPENCART_PASSWORD=test
+```
+
+### db_config.env
+```env
+MYSQL_ROOT_PASSWORD=test
+MYSQL_USER=test
+MYSQL_PASSWORD=test
+MYSQL_DATABASE=test
+```
+
+Navigate to the `bitnami` folder and use Docker Compose to start your containers:
+```bash
+docker-compose up -d
+```
+
 ## Customization
 
 - To customize OpenCart or MySQL versions, adjust the respective lines in the `Dockerfile` and `docker-compose.yml`.

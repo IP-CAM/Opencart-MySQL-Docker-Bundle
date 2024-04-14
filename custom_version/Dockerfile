@@ -45,6 +45,17 @@ RUN set -eux; \
 
 # Copy Apache virtual host config
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY admin_config.php /var/www/html/admin/config.php
+COPY config.php /var/www/html/config.php
+
+# Rename admin directory to manager
+RUN mkdir /var/www/html/manager \
+    && mkdir /var/www/html/storage \
+    && mv /var/www/html/admin/* /var/www/html/manager/ \
+    && mv /var/www/html/system/storage/* /var/www/html/storage/ \
+    && rmdir /var/www/html/admin \
+    && rmdir /var/www/html/system/storage
+
 
 WORKDIR /var/www/html
 

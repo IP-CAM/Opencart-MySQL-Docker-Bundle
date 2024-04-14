@@ -8,25 +8,26 @@ services:
     env_file:
       - db_config.env
     volumes:
-      - mysql_data:/mysql
+      - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
       - opencart
+
   opencart:
     build:
-      context: .
       dockerfile: Dockerfile
     container_name: opencart
     restart: always
     volumes:
-      - opencart_data:/opencart_data
+      - opencart_data:/var/www/html
     depends_on:
       - mysql
     ports:
       - "80:80"
     networks:
       - opencart
+
 volumes:
   mysql_data:
   opencart_data:
